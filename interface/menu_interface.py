@@ -22,33 +22,33 @@ class MenuInterface(MenuBaseClass):
         """
         ...
 
-    @abstractmethod
-    def account_submenu(self) -> None:
-        """
-            Relay responsibility of handling user creation and login to another class.
-        """
-        ...
+    # @abstractmethod
+    # def account_submenu(self) -> None:
+    #     """
+    #         Relay responsibility of handling user creation and login to another class.
+    #     """
+    #     ...
 
-    @abstractmethod
-    def admin_submenu(self) -> None:
-        """
-            Relay responsibility of handling admin menu to another class.
-        """
-        ...
+    # @abstractmethod
+    # def admin_submenu(self) -> None:
+    #     """
+    #         Relay responsibility of handling admin menu to another class.
+    #     """
+    #     ...
 
-    @abstractmethod
-    def patient_submenu(self) -> None:
-        """
-            Relay responsibility of handling patient actions to another class.
-        """
-        ...
+    # @abstractmethod
+    # def patient_submenu(self) -> None:
+    #     """
+    #         Relay responsibility of handling patient actions to another class.
+    #     """
+    #     ...
 
-    @abstractmethod
-    def doctor_submenu(self) -> None:
-        """
-            Relay responsibility of handling doctor actions to another class.
-        """
-        ...
+    # @abstractmethod
+    # def doctor_submenu(self) -> None:
+    #     """
+    #         Relay responsibility of handling doctor actions to another class.
+    #     """
+    #     ...
 
     @abstractmethod
     def close_connections(self) -> None:
