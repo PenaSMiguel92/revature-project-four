@@ -4,7 +4,7 @@ import mysql.connector
 from mysql.connector import MySQLConnection
 from mysql.connector.cursor import MySQLCursor
 from custom_exceptions.connection_failed import ConnectionFailed
-from config.mysql_connection_vars import MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_DATABASE, MYSQL_LOGFILE
+from config.mysql_connection_vars import MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, MYSQL_LOGFILE
 
 class DataAccessObjectInterface(object):
 
@@ -40,14 +40,15 @@ class DataAccessObjectInterface(object):
     @classmethod
     def get_connection(class_pointer) -> MySQLConnection:
         """
-            Make sure to have a python module with MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_DATABASE, and MYSQL_LOGFILE 
+            Make sure to have a python module with MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_HOST, MYSQL_PORT, MYSQL_DATABASE, and MYSQL_LOGFILE 
             variables defined in a directory called config/
         """
         
         try:
             if class_pointer.current_connection == None:
                 logging.info('Attempting to connect...')
-                class_pointer.current_connection = mysql.connector.connect(user=MYSQL_USERNAME, password=MYSQL_PASSWORD, host=MYSQL_HOST, database=MYSQL_DATABASE)
+                class_pointer.current_connection = mysql.connector.connect(user=MYSQL_USERNAME, password=MYSQL_PASSWORD, host=MYSQL_HOST, \
+                                                                           database=MYSQL_DATABASE, port=MYSQL_PORT)
             
         except IOError as error:
             print(f"(I/O Error): {error.strerror}")
