@@ -4,7 +4,7 @@ from config.mysql_connection_vars import MYSQL_LOGFILE
 import pandas
 from pandas import DataFrame
 import logging
-from mysql.connector import MySQLConnection
+from mysql.connector.cursor import MySQLCursor
 
 sakila_tables: list[str] = ['actor', 'address', 'category', 
                  'city', 'country',  'customer', 
@@ -13,16 +13,19 @@ sakila_tables: list[str] = ['actor', 'address', 'category',
                  'payment', 'rental', 'staff', 'store']
 
 class TableFactory(DataAccessObjectInterface):
-    def __init__():
+    def __init__(self):
         logging.basicConfig(filename=f"logs/{MYSQL_LOGFILE}.log", level=logging.DEBUG, format='%(asctime)s :: %(message)s')
     
     def get_table(self, table_name: str) -> DataFrame:
         if table_name not in sakila_tables:
             TableSelectionInvalidException('Selection is not a Sakila table')
 
-        connection: MySQLConnection = super().get_connection()
+        cursor: MySQLCursor = super().get_cursor()
         query: str = f'SELECT * FROM {table_name}'
-        dataframe: DataFrame = pandas.read_sql(query, connection)
+        cursor.execute(query)
 
+        dataframe: DataFrame = pandas.DataFrame(cursor.fetchall())
+        dataframe.columns = cursor.column_names
+        
         return dataframe
 
