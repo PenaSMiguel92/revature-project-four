@@ -6,10 +6,15 @@ from pandas import DataFrame as PD_DF
 
 
 class SparkService(SparkServiceInterface):
+    '''
+        This class abstracts away the implementation details of working with MySQL and Spark.
+        Simply create an object of this class, and call the methods to get the desired Spark DataFrames.
+    '''
     def __init__(self):
         self.spark = SparkSession.builder.appName("MySQLDBtoSparkDF").getOrCreate()
         self.spark.conf.set("spark.sql.execution.arrow.pyspark.enabled", "true")
         self.factory = TableFactory()
+        self.initialize_spark_sql()
 
     def initialize_spark_sql(self) -> bool:
         for table in sakila_tables:
@@ -35,8 +40,6 @@ class SparkService(SparkServiceInterface):
         return sakila_tables
     
     def distinct_actor_lastnames_count_query(self) -> Spark_DF:
-        # actor_df: Spark_DF = self.get_table('actor')
-        # print(actor_df.select('last_name').distinct().count())
         df = self.execute_query('SELECT COUNT(DISTINCT last_name) FROM actor')
         df = df.withColumnRenamed('count(DISTINCT last_name)', 'Number of Distinct Lastnames')
         return df
@@ -64,3 +67,8 @@ class SparkService(SparkServiceInterface):
     def execute_query(self, query: str) -> Spark_DF:
         result = self.spark.sql(query)
         return result
+    
+    def close_connections(self) -> None:
+        self.spark.stop()
+        self.factory.close_connection()
+        return

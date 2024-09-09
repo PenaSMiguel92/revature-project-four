@@ -21,10 +21,9 @@ your installation of MySQL, and save each table into a dataframe in Spark.
     5. What is the average running time of films by category?
 
 ## Tech Stack:
-    - Python 3.12.4
+    - Python 3.10.12
         - mysql-connector-python
         - pandas
-        - tqdm
         - pyspark
     - PySpark
     - VS Code
@@ -35,11 +34,10 @@ your installation of MySQL, and save each table into a dataframe in Spark.
 This optional project will be due by EOD on Friday. Feel free to send me the project (GitHub link)
 for me to review and provide feedback. Otherwise, there will be no mandatory evaluation/presentation.
 
-## Stretch Goals
+## Completed Stretch Goals
 
     - Make a CLI to prompt the user for info they might want to see
     - Allow for custom queries using SQL syntax in a CLI
-    - Keep logs for your application and store them in a MongoDB
 
 ## Issues Encountered and How to Fix:
 

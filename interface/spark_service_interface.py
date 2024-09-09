@@ -4,12 +4,6 @@ from pyspark.sql import SparkSession, DataFrame as Spark_DF
 from pandas import DataFrame as PD_DF
 
 class SparkServiceInterface(ABC):
-    def initialize_spark_sql(self) -> bool:
-        '''
-            This method will create a Spark DataFrame for each table in the Sakila database.
-            Making them available for querying with Spark SQL.
-        '''
-        ...
     
     def get_spark(self) -> SparkSession:
         '''
@@ -70,5 +64,11 @@ class SparkServiceInterface(ABC):
         '''
             This method will execute a query on the Spark DataFrame.
             Table names are one to one with the Sakila database tables.
+        '''
+        ...
+
+    def close_connection(self) -> None:
+        '''
+            This method will close the connection to the SparkSession object and MySQL Database.
         '''
         ...

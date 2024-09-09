@@ -1,11 +1,19 @@
-from pyspark.sql import SparkSession
-from implementation.data_access_classes.table_factory import TableFactory
-from pandas import DataFrame
+from implementation.main_menu import MainMenu, menu_state
+from custom_exceptions.menu_selection_invalid import MenuSelectionInvalidException
+from custom_exceptions.connection_failed import ConnectionFailed
+from custom_exceptions.table_selection_invalid import TableSelectionInvalidException
 
-spark = SparkSession.builder.appName("MySQLDBtoSparkDF").getOrCreate()
-spark.conf.set("spark.sql.execution.arrow.pyspark.enabled", "true")
-factory = TableFactory()
+def main():
+    menu = MainMenu()
+    while menu.get_state() != menu_state.CLOSING_STATE:
+        try:
+            menu.run()
+        except (MenuSelectionInvalidException, ConnectionFailed, TableSelectionInvalidException) as e:
+            print(e.message)
 
-film_pdf: DataFrame = factory.get_table('film')
+    print('Goodbye!')
+    # menu.close_connections()
 
-spark.createDataFrame(film_pdf).show()
+if __name__ == '__main__':
+    main()
+
