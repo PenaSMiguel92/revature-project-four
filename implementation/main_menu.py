@@ -20,6 +20,7 @@ from enum import Enum
 menu_state = Enum('MENU_STATE', [
 'INITIAL_STATE',
 'WAITING_STATE',
+'EVALUATING_STATE',
 # 'ACCOUNT_SUBMENU_STATE',
 # 'ADMIN_SUBMENU_STATE',
 # 'PATIENT_SUBMENU_STATE',
@@ -191,16 +192,18 @@ class MainMenu(InputValidation, MenuInterface):
         ...
 
     def display(self) -> None:
-        self.current_state = menu_state.ACCOUNT_SUBMENU_STATE
-        if self.account_service == None:
-            print('\nWelcome to RXBuddy!')
-            print('Please login or register...')
+        self.current_state = menu_state.WAITING_STATE
+        if self.spark_service == None:
+            print('\n Welcome to the Sakila Database CLI.')
+            print('Please select an option:')
             return
         
     def run(self) -> None:
         match self.current_state:
             case menu_state.INITIAL_STATE:
                 self.display()
+            case menu_state.EVALUATING_STATE:
+                ...
             # case menu_state.ACCOUNT_SUBMENU_STATE:
             #     self.account_submenu()
             # case menu_state.ADMIN_SUBMENU_STATE:

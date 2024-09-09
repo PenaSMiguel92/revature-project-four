@@ -22,6 +22,15 @@ class MenuInterface(MenuBaseClass):
         """
         ...
 
+    @abstractmethod
+    def evaluate_query(self, query: str) -> None:
+        """
+            Evaluate the query and call the appropriate method based on the current state.
+
+            :params: query - This will be the user input.
+        """
+        ...
+
     # @abstractmethod
     # def account_submenu(self) -> None:
     #     """
