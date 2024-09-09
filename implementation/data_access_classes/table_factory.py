@@ -17,6 +17,9 @@ class TableFactory(DataAccessObjectInterface):
         logging.basicConfig(filename=f"logs/{MYSQL_LOGFILE}.log", level=logging.DEBUG, format='%(asctime)s :: %(message)s')
     
     def get_table(self, table_name: str) -> DataFrame:
+        '''
+            This method will return a Pandas DataFrame for a given table. The table name must be a Sakila table.
+        '''
         table_name = table_name.lower()
         if table_name not in sakila_tables:
             TableSelectionInvalidException('Selection is not a Sakila table')
