@@ -75,3 +75,9 @@ Then added the following before calling spark.createDataFrame(pandas_dataframe)
 spark.conf.set('spark.sql.execution.arrow.enabled', 'true') 
 
 The schema is now inferred properly and no more errors were encountered.
+
+## Design Decisions
+
+I prefer Object Oriented Programming, so I wrote a class that handles Spark specific functionality, a class for retrieving tables from MySQL database, and a class for CLI. Each exception is its own class, and handles logging of database events.
+
+I also prefer using interface classes that provide documentation for each method in a class. Simply hover over the method name and get documentation details, reducing clutter in the implementation file.
